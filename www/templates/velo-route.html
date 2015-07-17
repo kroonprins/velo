@@ -1,0 +1,51 @@
+<ion-view view-title="Route">
+<ion-content class="scroll-content ionic-scroll" scroll="true">
+	<section class="padding-top">
+		<label class="item item-input" ng-click="resetFromStation()">
+			<i class="icon ion-search placeholder-icon padding" id="fromSearchIcon"></i>
+			<input id="fromStationQuery" ng-model="fromStationQuery" placeholder="From" type="text" ng-click="resetFromStation()"/>
+		</label>
+
+		<span id="fromResultList">
+			<ion-list>
+				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterFromNumChars:fromStationQuery:2)">
+					<div ng-hide="isSearching">
+					        <button class="button station-in-list" ng-click="setFromStation(station)">
+					                <div>{{station.name}}</div>
+					                <div ng-hide="station.status == 'OPN'" class="assertive">
+                   					     <span class=""><i class="ion-flash small-padding-right"></i>Not operational<i class="ion-flash small-padding-left"></i></span>
+					                </div>
+					        </button>
+					</div>
+				</ion-item>
+			</ion-list>
+			<div ng-include="'templates/busy-searching.html'"></div>
+		</span>
+	</section>
+	<section class="padding-top">
+		<label class="item item-input" ng-click="resetToStation()">
+			<i class="icon ion-search placeholder-icon padding" id="toSearchIcon"></i>
+			<input id="toStationQuery" ng-model="toStationQuery" placeholder="To" type="text"/>
+		</label>
+
+		<span id="toResultList">
+			<ion-list>
+				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterFromNumChars:toStationQuery:2)">
+					<div ng-hide="isSearching">
+					        <button class="button station-in-list" ng-click="setToStation(station)">
+					                <div>{{station.name}}</div>
+					                <div ng-hide="station.status == 'OPN'" class="assertive">
+                   					     <span class=""><i class="ion-flash small-padding-right"></i>Not operational<i class="ion-flash small-padding-left"></i></span>
+					                </div>
+					        </button>
+					</div>
+				</ion-item>
+			</ion-list>
+			<div ng-include="'templates/busy-searching.html'"></div>
+		</span>
+	</section>
+	<section class="padding-top" ng-hide="!stationsSet">
+		<a class="button button-full" ng-href="https://maps.google.com/?saddr={{fromStation.lat}},{{fromStation.lon}}&daddr={{toStation.lat}},{{toStation.lon}}&directionsmode=bicycling" target="_blank"><i class="ion-android-bicycle"></i>Show route</a>
+	</section>
+</ion-content>
+</ion-view>

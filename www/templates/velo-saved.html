@@ -1,0 +1,15 @@
+<main>
+	<section>
+		<ion-view view-title="Saved stations">
+			<ion-content class="scroll-content ionic-scroll has-header" scroll="true">
+				<ion-list>
+					<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterListOfStations:savedStations)">
+						<span ng-include="'templates/list-item.html'"></span> 
+					</ion-item>
+				</ion-list>
+				<div ng-include="'templates/busy-searching.html'"></div>
+				<div ng-hide="isSearching || filteredVeloResponse.length">No saved stations yet.</div>
+			</ion-content>
+		</ion-view>
+	</section>
+</main>

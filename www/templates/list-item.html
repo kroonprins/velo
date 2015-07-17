@@ -1,0 +1,22 @@
+<div ng-hide="isSearching" class="item-icon-right">
+	<a class="button station-in-list" ng-href="#/station/{{station.id}}">
+		<div>{{station.name}}</div>
+		<div ng-hide="station.status == 'OPN'" class="assertive">
+			<span class=""><i class="ion-flash small-padding-right"></i>Not operational<i class="ion-flash small-padding-left"></i></span>
+		</div>
+	</a>
+	<div class="icon">
+		<span class="button button-clear button-dark small-padding-right">
+			<span ng-class="station.bikes <= 2 ? 'assertive' : ''">{{station.bikes}}<i class="ion-locked small-padding-left"></i></span> / <span class="badge-assertive">{{station.slots}}<i class="ion-unlocked small-padding-left"></i></span>
+		</span>
+    		<a class="button small-margin-right" ng-href="https://maps.google.com/maps?z=15&t=m&q=loc:{{station.lat}}+{{+station.lon}}" target="_blank">
+			<i class="ion-location assertive"></i>
+		</a>
+    		<button class="button" ng-click="addToSavedStations(station)" ng-hide="station.saved">
+			<i class="ion-plus-circled"></i>
+		</button>
+    		<button class="button item-button-right" ng-click="removeFromSavedStations(station)" ng-hide="!station.saved">
+			<i class="ion-minus-circled"></i>
+		</button>
+	</div>
+</div>

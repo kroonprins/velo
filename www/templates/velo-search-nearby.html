@@ -1,0 +1,22 @@
+<ion-content class="scroll-content ionic-scroll" scroll="true">
+	<section class="padding-top">
+		<label class="item item-input">
+			<span class="input-label">Search radius</span>
+			<input ng-model="radius1" ng-change="radiusUpdate()" type="number" step=".1" />km
+		</label>
+		<button ng-click="getLocation()" class="button margin-top margin-left margin-bottom">Refresh location
+			<i class="icon ion-refresh"></i>
+		</button>
+		<span ng-hide="!position">
+			<ion-list>
+				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterNearbyStationsByDistance:position:radius1)">
+					<span ng-include="'templates/list-item.html'"></span>
+				</ion-item>
+			</ion-list>
+			<div ng-include="'templates/busy-searching.html'"></div>
+		</span>
+		<span ng-hide="position">
+			<div>Could not get location</div>
+		</span>
+	</section>
+</ion-content>

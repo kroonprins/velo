@@ -1,0 +1,17 @@
+<ion-content class="scroll-content ionic-scroll" scroll="true">
+	<section class="padding-top">
+		<label class="item item-input">
+			<i class="icon ion-search placeholder-icon"></i>
+			<input id="stationQuery" ng-model="stationQuery" placeholder="Station" type="text"/>
+		</label>
+
+		<span>
+			<ion-list>
+				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterFromNumChars:stationQuery:2)">
+					<span ng-include="'templates/list-item.html'"></span>
+				</ion-item>
+			</ion-list>
+			<div ng-include="'templates/busy-searching.html'"></div>
+		</span>
+	</section>
+</ion-content>

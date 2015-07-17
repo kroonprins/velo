@@ -1,0 +1,24 @@
+<main>
+	<ion-view view-title="Station {{stationId}}">
+		<ion-content class="scroll-content ionic-scroll has-header" scroll="true">
+			<section>
+				<div class="item item-divider">Station info</div>
+				<ion-list>
+					<ion-item ng-repeat="station in veloResponse | filterStation:stationId">
+						<span ng-include="'templates/list-item.html'"></span> 
+					</ion-item>
+				</ion-list>
+				<div ng-include="'templates/busy-searching.html'"></div>
+			</section>
+			<section>
+				<div class="item item-divider">Nearby stations</div>
+				<ion-list>
+					<ion-item ng-repeat="station in veloResponse | filterNearbyStations:stationId">
+						<span ng-include="'templates/list-item.html'"></span> 
+					</ion-item>
+				</ion-list>
+       	            		<div ng-include="'templates/busy-searching.html'"></div>
+			</section>
+		</ion-content>
+	</ion-view>
+</main>

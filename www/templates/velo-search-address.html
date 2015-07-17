@@ -1,0 +1,21 @@
+<ion-content class="scroll-content ionic-scroll" scroll="true">
+	<section class="padding-top">
+		<label class="item item-input">
+			<i class="icon ion-search placeholder-icon"></i>
+			<input id="addressQuery" ng-model="addressQuery" placeholder="Address" type="text"/>
+		</label>
+		<label class="item item-input">
+			<span class="input-label">Search radius</span>
+			<input ng-model="radius2" ng-change="radiusUpdate()" type="number" step=".1" />km
+		</label>
+
+		<span ng-hide="!addressQuery">
+			<ion-list>
+				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterNearbyStationsByDistance:position:radius2)">
+					<span ng-include="'templates/list-item.html'"></span>
+				</ion-item>
+			</ion-list>
+			<div ng-include="'templates/busy-searching.html'"></div>
+		</span>
+	</section>
+</ion-content>
