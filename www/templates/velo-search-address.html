@@ -6,12 +6,12 @@
 		</label>
 		<label class="item item-input">
 			<span class="input-label">Search radius</span>
-			<input ng-model="radius2" ng-change="radiusUpdate()" type="number" step=".1" />km
+			<input ng-model="radius2" ng-change="radiusUpdate()" type="number" step=".1" /><span class="item-icon-right">km</span>
 		</label>
 
 		<span ng-hide="!addressQuery">
 			<ion-list>
-				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterNearbyStationsByDistance:position:radius2)">
+				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterNearbyStationsByDistance:position:radius2)" ng-init="listId = 'listStationsByAddress'; listType='link'">
 					<span ng-include="'templates/list-item.html'"></span>
 				</ion-item>
 			</ion-list>

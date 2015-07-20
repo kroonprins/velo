@@ -2,21 +2,26 @@
 	<section class="padding-top">
 		<label class="item item-input">
 			<span class="input-label">Search radius</span>
-			<input ng-model="radius1" ng-change="radiusUpdate()" type="number" step=".1" />km
+			<input ng-model="radius1" ng-change="radiusUpdate()" type="number" step=".1" /><span class="item-icon-right">km</span>
 		</label>
 		<button ng-click="getLocation()" class="button margin-top margin-left margin-bottom">Refresh location
 			<i class="icon ion-refresh"></i>
 		</button>
 		<span ng-hide="!position">
 			<ion-list>
-				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterNearbyStationsByDistance:position:radius1)">
+				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterNearbyStationsByDistance:position:radius1)" ng-init="listId = 'listStationsByNearby'; listType='link'">
 					<span ng-include="'templates/list-item.html'"></span>
 				</ion-item>
 			</ion-list>
 			<div ng-include="'templates/busy-searching.html'"></div>
 		</span>
 		<span ng-hide="position">
-			<div>Could not get location</div>
+			<div class="card">
+			  <div class="item item-text-wrap">
+			    <i class="icon ion-wrench"></i>
+			    Could not get location
+			  </div>
+			</div>
 		</span>
 	</section>
 </ion-content>

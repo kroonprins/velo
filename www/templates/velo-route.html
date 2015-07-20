@@ -8,15 +8,8 @@
 
 		<span id="fromResultList">
 			<ion-list>
-				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterFromNumChars:fromStationQuery:2)">
-					<div ng-hide="isSearching">
-					        <button class="button station-in-list" ng-click="setFromStation(station)">
-					                <div>{{station.name}}</div>
-					                <div ng-hide="station.status == 'OPN'" class="assertive">
-                   					     <span class=""><i class="ion-flash small-padding-right"></i>Not operational<i class="ion-flash small-padding-left"></i></span>
-					                </div>
-					        </button>
-					</div>
+				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterFromNumChars:fromStationQuery:2)" ng-init="listId = 'listStationsFrom'; listType='click'; clickFunction = 'setFromStation(station)'">
+					<span ng-include="'templates/list-item.html'"></span>
 				</ion-item>
 			</ion-list>
 			<div ng-include="'templates/busy-searching.html'"></div>
@@ -30,7 +23,9 @@
 
 		<span id="toResultList">
 			<ion-list>
-				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterFromNumChars:toStationQuery:2)">
+				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterFromNumChars:toStationQuery:2)" ng-init="listId = 'listStationsTo'; listType='click'; clickFunction = 'setToStation(station)'">
+					<span ng-include="'templates/list-item.html'"></span>
+				<!--ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterFromNumChars:toStationQuery:2)">
 					<div ng-hide="isSearching">
 					        <button class="button station-in-list" ng-click="setToStation(station)">
 					                <div>{{station.name}}</div>
@@ -39,7 +34,7 @@
 					                </div>
 					        </button>
 					</div>
-				</ion-item>
+				</ion-item-->
 			</ion-list>
 			<div ng-include="'templates/busy-searching.html'"></div>
 		</span>

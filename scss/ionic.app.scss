@@ -30,16 +30,28 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	height: auto;
 	bottom: 49px;
 }
-$small_font: 6px;
-.station-in-list{
-	width: 46%;
-	padding-left: 5px;
-	> div{
-		text-align: left;
-		font-size: $small_font; 
-	}
+.station-in-list {
+	width: 100%;
+	font-size: 12px;
+	.station-name {
+		float: left;
+	};
+	.station-availability {
+		float: right;
+	};
 }
-$small_margin: 1px;
+.list-actions {
+	float: right;
+	width: auto;
+	margin-right: 0px;
+	margin-top: 4px;
+}
+.list-action-item {
+	width: 100%;
+	//height: 55px;
+	text-align: right;
+}
+$small_margin: 2px;
 $small_padding: $small_margin;
 .small-margin-right{margin-right: $small_margin;}
 .small-margin-left{margin-left: $small_margin;}
@@ -49,3 +61,52 @@ $small_padding: $small_margin;
 .small-padding-left{padding-left: $small_padding;}
 .small-padding-top{padding-top: $small_padding;}
 .small-padding-bottom{padding-bottom: $small_padding;}
+
+$velo_red: #BA122B;
+$velo_orange: #F7A30A;
+
+.bar.bar-velo {
+	background-color: $velo_red;
+	color: $velo_orange;
+}
+.tabs-velo>.tabs {
+	background-color: $velo_red;
+	color: $velo_orange;
+}
+.item {
+	background-color: $velo_orange;
+	color: $velo_red;
+	border-color: $velo_red;
+}
+.item-divider {
+	background-color: $velo_red;
+	color: $velo_orange;
+	border-color: $velo_orange;
+}
+
+.button {
+	background-color: $velo_orange;
+	color: $velo_red;
+	border-color: $velo_orange;
+}
+.button:hover {
+	background-color: $velo_orange;
+	color: $velo_red;
+}
+.pane, .body {
+	background-color: $velo_orange;
+}
+.bar {
+	border-bottom-color: $velo_red;
+}
+.tabs {
+	border-top-color: $velo_red;
+}
+.tabs-top>.tabs {
+	background-color: $velo_orange;
+	color: $velo_red;
+	border-color: $velo_orange;
+}
+.placeholder-icon {
+	color: $velo_red;
+}

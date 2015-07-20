@@ -7,7 +7,7 @@
 
 		<span>
 			<ion-list>
-				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterFromNumChars:stationQuery:2)">
+				<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterFromNumChars:stationQuery:2)" ng-init="listId = 'listStationsByStation'; listType='link'">
 					<span ng-include="'templates/list-item.html'"></span>
 				</ion-item>
 			</ion-list>

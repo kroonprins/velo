@@ -1,1 +1,12 @@
-<span ng-hide="!isSearching">Searching...</span
+<div class="card" ng-hide="!isSearching">
+  <div class="item item-text-wrap">
+    <i class="icon ion-load-d"></i>
+    Searching...
+  </div>
+</div>
+<div class="card" ng-hide="!isConnectionError">
+  <div class="item item-text-wrap">
+    <i class="icon ion-wrench"></i>
+    Error connecting! 
+  </div>
+</div>

@@ -4,7 +4,7 @@
 			<section>
 				<div class="item item-divider">Station info</div>
 				<ion-list>
-					<ion-item ng-repeat="station in veloResponse | filterStation:stationId">
+					<ion-item ng-repeat="station in veloResponse | filterStation:stationId"  ng-init="listId = 'listStation'; listType='link'">
 						<span ng-include="'templates/list-item.html'"></span> 
 					</ion-item>
 				</ion-list>
@@ -13,7 +13,7 @@
 			<section>
 				<div class="item item-divider">Nearby stations</div>
 				<ion-list>
-					<ion-item ng-repeat="station in veloResponse | filterNearbyStations:stationId">
+					<ion-item ng-repeat="station in veloResponse | filterNearbyStations:stationId" ng-init="listId = 'listNearbyStations'; listType='link'">
 						<span ng-include="'templates/list-item.html'"></span> 
 					</ion-item>
 				</ion-list>

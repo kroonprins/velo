@@ -1,13 +1,21 @@
 'use strict';
 
 /* Controllers */
-// This would be much nicer using inheritance to avoid all this code deduplication between controllers...
 
 var veloControllers = angular.module('veloControllers', ['ngStorage','ngCordova']);
 
-veloControllers.controller('VeloMainCtrl', ['$scope', 'VeloService',
+veloControllers.controller('VeloAbstractCtrl', ['$scope', 'VeloService',
   function($scope, VeloService) {
 	  $scope.isSearching=false;
+	  $scope.isConnectionError=false;
+
+	  $scope.actions = {
+	  	// default actions to show for a station => override in specific controller if needed
+		save: true,
+		remove: true,
+		map: true,
+		reorder: false
+	  }
 
 	  $scope.addToSavedStations = function(station) {
 		  VeloService.addSavedStation(station);
@@ -15,60 +23,79 @@ veloControllers.controller('VeloMainCtrl', ['$scope', 'VeloService',
 
 	  $scope.removeFromSavedStations = function(station) {
 		  VeloService.removeSavedStation(station);
+	  }
+
+	  $scope.toggleActions = function(index) {
+	  	var actions = $('#station-actions-'+index);
+		if(actions) {
+	  		var button = $('#toggle-actions-'+index);
+			if(actions.is(":visible")) {
+				actions.hide();
+				if(button) {
+					button.removeClass('ion-chevron-up');
+					button.addClass('ion-chevron-down');
+				}
+			} else {
+				actions.show();
+				if(button) {
+					button.addClass('ion-chevron-up');
+					button.removeClass('ion-chevron-down');
+				}
+			}
+		}
 	  }
 
 	  VeloService.retrieveAndUpdateScope($scope);
+  }]);
+
+veloControllers.controller('VeloMainCtrl', ['$scope', '$controller', 'VeloService',
+  function($scope, $controller, VeloService) {
+	  $controller('VeloAbstractCtrl', {$scope: $scope})
+
+	  $scope.actions.reorder = true;
+
+	  $scope.moveUp = function(idx) {
+	  	if(idx == 0) {
+			return;
+		}
+		var tmp = $scope.savedStations[idx];
+		$scope.savedStations[idx] = $scope.savedStations[idx-1];
+		$scope.savedStations[idx-1] = tmp;
+		VeloService.setSavedStations($scope.savedStations);
+	  }
+	  $scope.moveDown = function(idx) {
+	  	if(idx == $scope.savedStations.length) {
+			return;
+		}
+		var tmp = $scope.savedStations[idx];
+		$scope.savedStations[idx] = $scope.savedStations[idx+1];
+		$scope.savedStations[idx+1] = tmp;
+		VeloService.setSavedStations($scope.savedStations);
+	  }
+
 	  $scope.savedStations = VeloService.getSavedStations();
-  }])
+  }]);
 
-veloControllers.controller('VeloStationCtrl', ['$scope', '$stateParams','VeloService',
-  function($scope, $stateParams, VeloService) {
-	  $scope.isSearching=false;
-
-	  $scope.addToSavedStations = function(station) {
-		  VeloService.addSavedStation(station);
-	  }
-
-	  $scope.removeFromSavedStations = function(station) {
-		  VeloService.removeSavedStation(station);
-	  }
+veloControllers.controller('VeloStationCtrl', ['$scope', '$stateParams','$controller',
+  function($scope, $stateParams, $controller) {
+	  $controller('VeloAbstractCtrl', {$scope: $scope})
 
           $scope.stationId="";
           if($stateParams.stationId){
                   $scope.stationId = $stateParams.stationId;
           }
-
-	  VeloService.retrieveAndUpdateScope($scope);
   }]);
 
-veloControllers.controller('VeloSearchStationCtrl', ['$scope', 'VeloService',
-  function($scope, VeloService) {
-	  $scope.isSearching=false;
-
-	  $scope.addToSavedStations = function(station) {
-		  VeloService.addSavedStation(station);
-	  }
-
-	  $scope.removeFromSavedStations = function(station) {
-		  VeloService.removeSavedStation(station);
-	  }
-
-	  VeloService.retrieveAndUpdateScope($scope);
+veloControllers.controller('VeloSearchStationCtrl', ['$scope', '$controller',
+  function($scope, $controller) {
+	  $controller('VeloAbstractCtrl', {$scope: $scope})
   }]);
 
-veloControllers.controller('VeloSearchNearbyCtrl', ['$scope', '$localStorage', '$cordovaGeolocation', 'VeloService',
-  function($scope, $localStorage, $cordovaGeolocation, VeloService) {
-	  $scope.isSearching=false;
+veloControllers.controller('VeloSearchNearbyCtrl', ['$scope', '$localStorage', '$cordovaGeolocation', '$controller',
+  function($scope, $localStorage, $cordovaGeolocation, $controller) {
+	  $controller('VeloAbstractCtrl', {$scope: $scope})
+
 	  $scope.position=null;
-
-	  $scope.addToSavedStations = function(station) {
-		  VeloService.addSavedStation(station);
-	  }
-
-	  $scope.removeFromSavedStations = function(station) {
-		  VeloService.removeSavedStation(station);
-	  }
-
 	  $scope.getLocation = function() {
 		  $scope.isSearching=true;
 		  $cordovaGeolocation.getCurrentPosition({timeout: 15000, enableHighAccuracy: false })
@@ -87,8 +114,6 @@ veloControllers.controller('VeloSearchNearbyCtrl', ['$scope', '$localStorage', '
 		  }
 	  }
 
-	  VeloService.retrieveAndUpdateScope($scope);
-
 	  if($localStorage.radius1){
 		  $scope.radius1 = $localStorage.radius1;
 	  } else {
@@ -97,25 +122,15 @@ veloControllers.controller('VeloSearchNearbyCtrl', ['$scope', '$localStorage', '
 	  $scope.getLocation();
   }]);
 
-veloControllers.controller('VeloSearchAddressCtrl', ['$scope', '$localStorage', 'VeloService',
-  function($scope, $localStorage, VeloService) {
-	  $scope.isSearching=false;
-
-	  $scope.addToSavedStations = function(station) {
-		  VeloService.addSavedStation(station);
-	  }
-
-	  $scope.removeFromSavedStations = function(station) {
-		  VeloService.removeSavedStation(station);
-	  }
+veloControllers.controller('VeloSearchAddressCtrl', ['$scope', '$localStorage', '$controller',
+  function($scope, $localStorage, $controller) {
+	  $controller('VeloAbstractCtrl', {$scope: $scope})
 
 	  $scope.radiusUpdate = function() {
 		  if(this.radius2) {
 		  	$localStorage.radius2 = this.radius2;
 		  }
 	  }
-
-	  VeloService.retrieveAndUpdateScope($scope);
 
 	  if(!$scope.autocomplete) {
 		  if($localStorage.radius2){
@@ -138,9 +153,9 @@ veloControllers.controller('VeloSearchAddressCtrl', ['$scope', '$localStorage', 
 
   }]);
 
-veloControllers.controller('VeloRouteCtrl', ['$scope', 'VeloService',
-  function($scope, VeloService) {
-	  $scope.isSearching=false;
+veloControllers.controller('VeloRouteCtrl', ['$scope', '$controller',
+  function($scope, $controller) {
+	  $controller('VeloAbstractCtrl', {$scope: $scope})
 	  $scope.stationsSet=false;
 
 	  $scope.setFromStation = function(station) {
@@ -207,6 +222,5 @@ veloControllers.controller('VeloRouteCtrl', ['$scope', 'VeloService',
 			$scope.stationsSet = true;
 		}
 	  }
-	  VeloService.retrieveAndUpdateScope($scope);
   }]);
 

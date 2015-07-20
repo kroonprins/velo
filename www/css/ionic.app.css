@@ -7713,32 +7713,87 @@ a.button {
   bottom: 49px; }
 
 .station-in-list {
-  width: 46%;
-  padding-left: 5px; }
-  .station-in-list > div {
-    text-align: left;
-    font-size: 6px; }
+  width: 100%;
+  font-size: 12px; }
+  .station-in-list .station-name {
+    float: left; }
+  .station-in-list .station-availability {
+    float: right; }
+
+.list-actions {
+  float: right;
+  width: auto;
+  margin-right: 0px;
+  margin-top: 4px; }
+
+.list-action-item {
+  width: 100%;
+  text-align: right; }
 
 .small-margin-right {
-  margin-right: 1px; }
+  margin-right: 2px; }
 
 .small-margin-left {
-  margin-left: 1px; }
+  margin-left: 2px; }
 
 .small-margin-top {
-  margin-top: 1px; }
+  margin-top: 2px; }
 
 .small-margin-bottom {
-  margin-bottom: 1px; }
+  margin-bottom: 2px; }
 
 .small-padding-right {
-  padding-right: 1px; }
+  padding-right: 2px; }
 
 .small-padding-left {
-  padding-left: 1px; }
+  padding-left: 2px; }
 
 .small-padding-top {
-  padding-top: 1px; }
+  padding-top: 2px; }
 
 .small-padding-bottom {
-  padding-bottom: 1px; }
+  padding-bottom: 2px; }
+
+.bar.bar-velo {
+  background-color: #BA122B;
+  color: #F7A30A; }
+
+.tabs-velo > .tabs {
+  background-color: #BA122B;
+  color: #F7A30A; }
+
+.item {
+  background-color: #F7A30A;
+  color: #BA122B;
+  border-color: #BA122B; }
+
+.item-divider {
+  background-color: #BA122B;
+  color: #F7A30A;
+  border-color: #F7A30A; }
+
+.button {
+  background-color: #F7A30A;
+  color: #BA122B;
+  border-color: #F7A30A; }
+
+.button:hover {
+  background-color: #F7A30A;
+  color: #BA122B; }
+
+.pane, .body {
+  background-color: #F7A30A; }
+
+.bar {
+  border-bottom-color: #BA122B; }
+
+.tabs {
+  border-top-color: #BA122B; }
+
+.tabs-top > .tabs {
+  background-color: #F7A30A;
+  color: #BA122B;
+  border-color: #F7A30A; }
+
+.placeholder-icon {
+  color: #BA122B; }

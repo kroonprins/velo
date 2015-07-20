@@ -16,6 +16,11 @@ veloServices.factory('VeloService', ['$http','$localStorage',
 			}
 			return $localStorage.savedStations;
 		},
+                setSavedStations : function(savedStations){
+                        if(!savedStations) {
+                                $localStorage.savedStations = savedStations;
+                        }
+                },
 		addSavedStation : function(station){
 			if(!$localStorage.savedStations) {
 				$localStorage.savedStations = [];
@@ -40,13 +45,15 @@ veloServices.factory('VeloService', ['$http','$localStorage',
 			scope.isSearching=true;
 
 			var currentTimestamp = Date.now();
-			if(data && currentTimestamp - lastInvocationTimestamp < interval){
+			if(!scope.isConnectionError && data && currentTimestamp - lastInvocationTimestamp < interval){
 				scope.veloResponse = data;
 				scope.isSearching=false;
 				return;
 			}
 			lastInvocationTimestamp = currentTimestamp;
+			scope.isConnectionError = false;
 			service.retrieve().then(function(d) {
+				try {
 				$.map(d, function(val) {
                     			val.name = val.name.substring(0,3)+" - "+val.name.substring(5);
 		                       	val.saved = $.inArray(val.id,$localStorage.savedStations) > -1; 
@@ -58,7 +65,11 @@ veloServices.factory('VeloService', ['$http','$localStorage',
 			        });
 				data = d;
 				scope.veloResponse = data;
-				scope.isSearching=false;
+				} catch(err) {
+					scope.isConnectionError = true;
+				} finally {
+					scope.isSearching=false;
+				}
 			});
 		},
 	  	retrieve : function() {
@@ -68,6 +79,7 @@ veloServices.factory('VeloService', ['$http','$localStorage',
 				},
     				function(data) {
 					console.log("Error calling Velo "+JSON.stringify(data,null,4));
+					throw "Connection error"
   				 });
 			return promise;
 	  	}
