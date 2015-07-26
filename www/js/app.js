@@ -22,10 +22,6 @@ angular.module('veloApp', ['ionic', 'veloControllers', 'veloFilters', 'veloServi
   })
 .config(function($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
 
   // setup an abstract state for the tabs directive
@@ -35,22 +31,12 @@ angular.module('veloApp', ['ionic', 'veloControllers', 'veloFilters', 'veloServi
     templateUrl: 'templates/main.html'
   })
 
-  // Each tab has its own nav history stack:
-
   .state('main.saved', {
     url: '/saved',
     views: {
       'saved': {
         templateUrl: 'templates/velo-saved.html',
         controller: 'VeloMainCtrl'
-      },
-      'header' : {
-        templateUrl: 'templates/header.html',
-        //controller: 'VeloMainCtrl'
-      },
-      'footer' : {
-        templateUrl: 'templates/footer.html',
-        //controller: 'VeloMainCtrl'
       }
     }
   })
@@ -60,14 +46,6 @@ angular.module('veloApp', ['ionic', 'veloControllers', 'veloFilters', 'veloServi
         'station': {
           templateUrl: 'templates/velo-station.html',
           controller: 'VeloStationCtrl'
-        },
-        'header' : {
-          templateUrl: 'templates/header.html',
-          //controller: 'VeloMainCtrl'
-        },
-        'footer' : {
-          templateUrl: 'templates/footer.html',
-          //controller: 'VeloMainCtrl'
         }
       }
     })
@@ -77,14 +55,6 @@ angular.module('veloApp', ['ionic', 'veloControllers', 'veloFilters', 'veloServi
       views: {
         'search': {
           templateUrl: 'templates/velo-search.html',
-          //controller: 'VeloMainCtrl'
-        },
-        'header' : {
-          templateUrl: 'templates/header.html',
-          //controller: 'VeloMainCtrl'
-        },
-        'footer' : {
-          templateUrl: 'templates/footer.html',
           //controller: 'VeloMainCtrl'
         }
       },
@@ -124,12 +94,6 @@ angular.module('veloApp', ['ionic', 'veloControllers', 'veloFilters', 'veloServi
         'route': {
           templateUrl: 'templates/velo-route.html',
           controller: 'VeloRouteCtrl'
-        },
-        'header' : {
-          templateUrl: 'templates/header.html',
-        },
-        'footer' : {
-          templateUrl: 'templates/footer.html',
         }
       }
     });
@@ -138,22 +102,3 @@ angular.module('veloApp', ['ionic', 'veloControllers', 'veloFilters', 'veloServi
   $urlRouterProvider.otherwise('/saved');
 
 });
-
-  /*function($routeProvider) {
-          $routeProvider.
-                when('/velo', {
-                        templateUrl: 'templates/velo-main.html',
-                        controller: 'VeloMainCtrl'
-                }).
-                when('/velo/:stationId', {
-                        templateUrl: 'templates/velo-station.html',
-                        controller: 'VeloStationCtrl'
-                }).
-                when('/search/:searchType', {
-                        templateUrl: 'templates/velo-search.html',
-                        controller: 'VeloSearchCtrl'
-                }).
-                otherwise({
-                        redirectTo: '/velo'
-                });
-  }]);*/

@@ -7760,7 +7760,8 @@ a.button {
 
 .tabs-velo > .tabs {
   background-color: #BA122B;
-  color: #F7A30A; }
+  color: #F7A30A;
+  border-color: #BA122B; }
 
 .item {
   background-color: #F7A30A;

@@ -17,6 +17,10 @@ veloControllers.controller('VeloAbstractCtrl', ['$scope', 'VeloService',
 		reorder: false
 	  }
 
+	  $scope.swipe = function(target) {
+	  	location.href = target;
+	  }
+
 	  $scope.addToSavedStations = function(station) {
 		  VeloService.addSavedStation(station);
 	  }
@@ -45,7 +49,12 @@ veloControllers.controller('VeloAbstractCtrl', ['$scope', 'VeloService',
 		}
 	  }
 
-	  VeloService.retrieveAndUpdateScope($scope);
+	  $scope.forceRefresh = function() {
+		alert('a');
+	  	VeloService.retrieveAndUpdateScope($scope,true);
+	  }
+
+	  VeloService.retrieveAndUpdateScope($scope,false);
   }]);
 
 veloControllers.controller('VeloMainCtrl', ['$scope', '$controller', 'VeloService',

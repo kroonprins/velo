@@ -1,7 +1,7 @@
 <main>
 	<section>
 		<ion-view view-title="Saved stations">
-			<ion-content class="scroll-content ionic-scroll has-header" scroll="true">
+			<ion-content class="scroll-content ionic-scroll has-header" scroll="true" on-swipe-left="swipe('#/search/station')">
 				<ion-list>
 					<ion-item ng-repeat="station in filteredVeloResponse = (veloResponse | filterListOfStations:savedStations)" ng-init="listId = 'listSavedStations'; listType='link'">
 						<span ng-include="'templates/list-item.html'"></span> 

@@ -41,36 +41,38 @@ veloServices.factory('VeloService', ['$http','$localStorage',
                 	}
                 	station.saved = false;
 		},
-	  	retrieveAndUpdateScope : function(scope) {
+	  	retrieveAndUpdateScope : function(scope, force) {
 			scope.isSearching=true;
 
 			var currentTimestamp = Date.now();
-			if(!scope.isConnectionError && data && currentTimestamp - lastInvocationTimestamp < interval){
+			if(!force && !scope.isConnectionError && data && currentTimestamp - lastInvocationTimestamp < interval){
 				scope.veloResponse = data;
 				scope.isSearching=false;
 				return;
 			}
 			lastInvocationTimestamp = currentTimestamp;
+
 			scope.isConnectionError = false;
-			service.retrieve().then(function(d) {
-				try {
-				$.map(d, function(val) {
-                    			val.name = val.name.substring(0,3)+" - "+val.name.substring(5);
-		                       	val.saved = $.inArray(val.id,$localStorage.savedStations) > -1; 
-					// save some memory by removing unused items
-                                	delete val.district;
-	                                delete val.zip;
-                                	delete val.address;
-                                	delete val.addressNumber;
-			        });
-				data = d;
-				scope.veloResponse = data;
-				} catch(err) {
-					scope.isConnectionError = true;
-				} finally {
+
+			service.retrieve()
+				.then(function(d) {
+					$.map(d, function(val) {
+                    				val.name = val.name.substring(0,3)+" - "+val.name.substring(5);
+		                       		val.saved = $.inArray(val.id,$localStorage.savedStations) > -1; 
+						// save some memory by removing unused items
+                                		delete val.district;
+	                                	delete val.zip;
+                                		delete val.address;
+                                		delete val.addressNumber;
+					});
+					data = d;
 					scope.isSearching=false;
-				}
-			});
+					scope.veloResponse = data;
+				})
+				.catch(function(e) {
+					scope.isConnectionError=true;
+					scope.isSearching=false;
+				})
 		},
 	  	retrieve : function() {
 		  	var promise = $http.get('https://www.velo-antwerpen.be/availability_map/getJsonObject')
@@ -78,8 +80,7 @@ veloServices.factory('VeloService', ['$http','$localStorage',
 					return response.data;
 				},
     				function(data) {
-					console.log("Error calling Velo "+JSON.stringify(data,null,4));
-					throw "Connection error"
+					throw "Connection error "+JSON.stringify(data,null,4);
   				 });
 			return promise;
 	  	}
