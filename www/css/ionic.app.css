@@ -7714,11 +7714,21 @@ a.button {
 
 .station-in-list {
   width: 100%;
-  font-size: 12px; }
+  padding-right: 30px; }
   .station-in-list .station-name {
-    float: left; }
+    text-align: left;
+    font-size: 17px; }
   .station-in-list .station-availability {
-    float: right; }
+    text-align: right;
+    font-size: 20px; }
+    .station-in-list .station-availability .free-bikes, .station-in-list .station-availability .free-bikes-icon, .station-in-list .station-availability .present-bikes, .station-in-list .station-availability .present-bikes-icon {
+      display: inline-block;
+      width: 75px; }
+    .station-in-list .station-availability .present-bikes, .station-in-list .station-availability .free-bikes-icon {
+      width: 30px; }
+
+.action-button {
+  height: 80px; }
 
 .list-actions {
   float: right;
@@ -7758,10 +7768,8 @@ a.button {
   background-color: #BA122B;
   color: #F7A30A; }
 
-.tabs-velo > .tabs {
-  background-color: #BA122B;
-  color: #F7A30A;
-  border-color: #BA122B; }
+.bar {
+  background-color: #BA122B; }
 
 .item {
   background-color: #F7A30A;
@@ -7776,20 +7784,25 @@ a.button {
 .button {
   background-color: #F7A30A;
   color: #BA122B;
-  border-color: #F7A30A; }
+  border-color: #F7A30A;
+  -webkit-tap-highlight-color: transparent; }
 
-.button:hover {
+.button:hover, .button:active {
   background-color: #F7A30A;
-  color: #BA122B; }
+  color: #BA122B;
+  border-color: #F7A30A;
+  -webkit-tap-highlight-color: transparent; }
 
 .pane, .body {
   background-color: #F7A30A; }
 
 .bar {
-  border-bottom-color: #BA122B; }
+  border-color: #BA122B; }
 
-.tabs {
-  border-top-color: #BA122B; }
+.tabs-velo > .tabs {
+  background-color: #BA122B;
+  color: #F7A30A;
+  border-color: #BA122B; }
 
 .tabs-top > .tabs {
   background-color: #F7A30A;

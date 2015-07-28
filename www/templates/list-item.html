@@ -1,18 +1,18 @@
 <div ng-hide="isSearching" class="item-icon-right">
 	<a class="button station-in-list" ng-href="{{listType == 'link' ? '#/station/'+station.id : ''}}" ng-click="{{listType == 'click' ? clickFunction : ''}}">
-		<span class="station-name">
+		<div class="station-name">
 			{{station.name}}
 			<span ng-hide="station.status == 'OPN'" class="assertive">
 				<i class="ion-flash small-padding-right"></i>
 			</span>
-		</span>
-		<span class="station-availability">
-			<span ng-class="station.bikes <= 2 ? 'assertive' : ''">{{station.bikes}}<i class="ion-locked small-padding-left"></i></span> / <span ng-class="station.slots <= 2 ? 'assertive' : ''">{{station.slots}}<i class="ion-unlocked small-padding-left"></i></span>
-		</span>
+		</div>
+		<div class="station-availability">
+			<span class="free-bikes">{{station.bikes}}</span>
+			<i class="ion-locked free-bikes-icon" ng-class="station.bikes <= 2 ? 'assertive' : ''"></i>
+			<i class="ion-unlocked present-bikes-icon" ng-class="station.slots <= 2 ? 'assertive' : ''"></i>
+			<span class="present-bikes">{{station.slots}}</span>
+		</div>
 	</a>
-	<button class="button ion-chevron-down" id="toggle-actions-{{listId}}-{{station.id}}" ng-click="toggleActions('{{listId}}-{{station.id}}')"></button>
-<ion-reorder-button class="ion-navicon"
-                    on-reorder="reorderItem(item, $fromIndex, $toIndex)">
-</ion-reorder-button>
+	<button class="button ion-chevron-down action-button" id="toggle-actions-{{listId}}-{{station.id}}" ng-click="toggleActions('{{listId}}-{{station.id}}')"></button>
 </div>
 <span ng-include="'templates/list-item-action.html'"></span>
