@@ -7781,17 +7781,19 @@ a.button {
   color: #F7A30A;
   border-color: #F7A30A; }
 
-.button {
+.button, .button:active, .button:hover, button:focus, .button.activated {
   background-color: #F7A30A;
   color: #BA122B;
   border-color: #F7A30A;
-  -webkit-tap-highlight-color: transparent; }
+  border: none;
+  outline: 0;
+  box-shadow: none; }
 
-.button:hover, .button:active {
-  background-color: #F7A30A;
-  color: #BA122B;
-  border-color: #F7A30A;
-  -webkit-tap-highlight-color: transparent; }
+* {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-focus-ring-color: rgba(255, 255, 255, 0);
+  outline: none; }
 
 .pane, .body {
   background-color: #F7A30A; }

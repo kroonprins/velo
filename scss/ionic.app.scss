@@ -95,18 +95,20 @@ $velo_orange: #F7A30A;
 	border-color: $velo_orange;
 }
 
-.button {
+.button, .button:active, .button:hover, button:focus, .button.activated {
 	background-color: $velo_orange;
 	color: $velo_red;
 	border-color: $velo_orange;
-  	-webkit-tap-highlight-color: transparent;
+	border: none;
+	outline: 0;
+	box-shadow: none;
 }
-.button:hover, .button:active {
-	background-color: $velo_orange;
-	color: $velo_red;
-	border-color: $velo_orange;
-  	-webkit-tap-highlight-color: transparent;
-}
+* {
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
+	-webkit-tap-highlight-color: transparent;
+	-webkit-focus-ring-color: rgba(255, 255, 255, 0); 
+	outline: none;
+} 
 .pane, .body {
 	background-color: $velo_orange;
 }

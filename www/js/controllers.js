@@ -107,7 +107,7 @@ veloControllers.controller('VeloSearchNearbyCtrl', ['$scope', '$localStorage', '
 	  $scope.position=null;
 	  $scope.getLocation = function() {
 		  $scope.isSearching=true;
-		  $cordovaGeolocation.getCurrentPosition({timeout: 15000, enableHighAccuracy: false })
+		  $cordovaGeolocation.getCurrentPosition({timeout: 60000, enableHighAccuracy: false, maximumAge: 30000 })
 			.then(function (position) {
 				$scope.position = position;
 		  		$scope.isSearching=false;
@@ -155,7 +155,7 @@ veloControllers.controller('VeloSearchAddressCtrl', ['$scope', '$localStorage', 
         	  google.maps.event.addListener($scope.autocomplete,
 			  'place_changed', function() {
 				  var geometry = $scope.autocomplete.getPlace().geometry.location
-				  $scope.position = { 'coords': { 'longitude': geometry.F, 'latitude': geometry.A } };
+				  $scope.position = { 'coords': { 'longitude': geometry.lng(), 'latitude': geometry.lat() } };
 				  $scope.$apply();
 		  });
 	  }
